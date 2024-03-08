@@ -1,8 +1,7 @@
 import PuzzleCell from "./PuzzleCell"
 import { useEffect } from "react"
 
-const WIDTH = 1706;
-const HEIGHT = 780;
+
 
 var isClicked = false;
 
@@ -25,8 +24,9 @@ function isContainer(element, x, y) {
 }
 
 
-export default function BackGround() {
+export default function BackGround({ArrayPosition}) {
     useEffect(() => {
+        console.log(ArrayPosition);
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const pictureCell = document.getElementsByClassName('picture__cell');
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
@@ -38,12 +38,8 @@ export default function BackGround() {
             const [x, y] = [i % 10, Math.floor(i / 10)]
             cell.style.clipPath = `polygon(${x * 10}% ${y * 20}%, ${(x + 1) * 10}% ${y * 20}%, ${(x + 1) * 10}% ${(y + 1) * 20}%, ${x * 10}% ${(y + 1) * 20}%)`
             
-            cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[i].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
-            cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[i].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
-
-            // set position of each cell randomly in background
-            // cell.style.left = Math.random() * WIDTH - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
-            // cell.style.top = Math.random() * HEIGHT - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
+            cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
+            cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
 
             cell.addEventListener('mousedown', (event) => {
                 isClicked = true;
@@ -100,7 +96,7 @@ export default function BackGround() {
                 {
                     Array(25).fill(0).map((_, i) => {
                         return (
-                            <div className="Puzzle__cell"> </div>
+                            <div key={i} className="Puzzle__cell"> </div>
                         )
                     })
                 }
@@ -109,7 +105,7 @@ export default function BackGround() {
                 {
                     Array(25).fill(0).map((_, i) => {
                         return (
-                            <div className="Puzzle__cell"> </div>
+                            <div key={i} className="Puzzle__cell"> </div>
                         )
                     })
                 }
