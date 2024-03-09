@@ -73,7 +73,7 @@ img{
     justify-content: space-around;
 }
 
-.resetButton{
+.Control__Button{
     all: unset;
     padding: 10px 20px;
     background-color: violet;
@@ -85,7 +85,7 @@ img{
     cursor: pointer;
 }
 
-.resetButton p{
+.Control__Button p{
     z-index: 1;
     transition: all 0.5s;
     position: relative;
@@ -93,11 +93,11 @@ img{
     font-size: 20px;
 }
 
-.resetButton:hover p{
+.Control__Button:hover p{
     color: thistle;
 }
 
-.resetButton::before{
+.Control__Button::before{
     content: "";
     position: absolute;
     left: 0;
@@ -109,6 +109,6 @@ img{
     transition: clip-path 0.5s;
 }
 
-.resetButton:hover::before{
+.Control__Button:hover::before{
     clip-path: circle(100px at 0 0);
 }

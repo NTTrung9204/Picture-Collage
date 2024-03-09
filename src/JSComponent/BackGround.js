@@ -1,11 +1,13 @@
 import PuzzleCell from "./PuzzleCell"
 import { useEffect } from "react"
+import SolveButton from "./SolveButton"
 import ResetButton from "./ResetButton"
 
 
 var isClicked = false;
 
 function moveInContainer(element, container) {
+    element.style.transition = 'all 0.3s';
     const dataId = container.getAttribute('data-id');
     const i = element.id;
     const [x, y] = [i % 10, Math.floor(i / 10)]
@@ -47,6 +49,23 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
     
             cell.setAttribute('data-id', null);
         })
+    }
+
+    function solve() {
+        const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
+        const pictureCell = document.getElementsByClassName('picture__cell');
+        recureSolve(PuzzleCell, pictureCell, 0)
+    }
+
+    function recureSolve(PuzzleCell, pictureCell, i) {
+        if (i == nPuzzle) {
+            return;
+        }
+        moveInContainer(PuzzleCell[i], pictureCell[i]);
+        setTimeout(() => {
+            recureSolve(PuzzleCell, pictureCell, i + 1);
+        }, 300);
+    
     }
 
     useEffect(() => {
@@ -95,7 +114,6 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             e.target.style.zIndex = 0;
             Array.from(pictureCell).forEach(pictureCell => {
                 if (isContainer(pictureCell, e.clientX, e.clientY)) {
-                    e.target.style.transition = 'all 0.3s';
                     moveInContainer(e.target, pictureCell);
                 }
             });
@@ -144,6 +162,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
 
             <div className="Control">
                 <ResetButton reset={reset} generateRandomArray={generateRandomArray} nPuzzle={nPuzzle} />
+                <SolveButton solve={solve} />
             </div>
         </div>
     )
