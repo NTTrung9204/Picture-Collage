@@ -6,6 +6,7 @@ import HintButton from "./HintButton"
 import image from '../IMG/image4.jpg';
 
 var isClicked = false;
+var isAlert = false;
 
 function moveInContainer(element, container) {
     element.style.transition = 'all 0.3s';
@@ -29,9 +30,9 @@ function isContainer(element, x, y) {
 }
 
 function checkWin() {
-    const pictureCell = document.getElementsByClassName('picture__cell');
-    for (let i = 0; i < pictureCell.length; i++) {
-        if (pictureCell[i].getAttribute('data-id') != i) {
+    const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
+    for (let i = 0; i < PuzzleCell.length; i++) {
+        if (PuzzleCell[i].getAttribute('data-id') != i) {
             return false;
         }
     }
@@ -90,10 +91,6 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             const [x, y] = [i % 10, Math.floor(i / 10)]
             cell.style.clipPath = `polygon(${x * 10}% ${y * 20}%, ${(x + 1) * 10}% ${y * 20}%, ${(x + 1) * 10}% ${(y + 1) * 20}%, ${x * 10}% ${(y + 1) * 20}%)`
 
-            // cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
-            // cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
-
-
             cell.addEventListener('mousedown', (event) => {
                 isClicked = true;
                 cell.style.transition = 'all 0.0s';
@@ -104,6 +101,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
 
             cell.addEventListener('mousemove', (event) => {
                 if (isClicked) {
+                    event.target.setAttribute('data-id', null);
                     event.target.style.left = event.clientX - positionPointer.x + 'px';
                     event.target.style.top = event.clientY - positionPointer.y + 'px';
                     Array.from(pictureCell).forEach(pictureCell => {
@@ -123,8 +121,12 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             isClicked = false;
             e.target.style.zIndex = 0;
             Array.from(pictureCell).forEach(pictureCell => {
-                if (isContainer(pictureCell, e.clientX, e.clientY)) {
+                if (isContainer(pictureCell, e.clientX, e.clientY) && e.target.className == 'Puzzle__cell__image') {
                     moveInContainer(e.target, pictureCell);
+                    if(checkWin() && !isAlert){
+                        isAlert = true;
+                        alert('You win');
+                    }
                 }
             });
         })
