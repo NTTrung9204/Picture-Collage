@@ -62,3 +62,53 @@ img{
     top: 0px; */
     cursor: pointer;
 }
+
+.Control{
+    width: 750px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.resetButton{
+    all: unset;
+    padding: 10px 20px;
+    background-color: violet;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.resetButton p{
+    z-index: 1;
+    transition: all 0.5s;
+    position: relative;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.resetButton:hover p{
+    color: thistle;
+}
+
+.resetButton::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: purple;
+    clip-path: circle(0 at 0 0);
+    transition: clip-path 0.5s;
+}
+
+.resetButton:hover::before{
+    clip-path: circle(100px at 0 0);
+}
