@@ -112,3 +112,8 @@ img{
 .Control__Button:hover::before{
     clip-path: circle(100px at 0 0);
 }
+
+.hintPicture{
+    opacity: 0;
+    transition: all 2.5s;
+}

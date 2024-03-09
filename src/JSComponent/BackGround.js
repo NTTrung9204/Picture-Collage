@@ -2,7 +2,8 @@ import PuzzleCell from "./PuzzleCell"
 import { useEffect } from "react"
 import SolveButton from "./SolveButton"
 import ResetButton from "./ResetButton"
-
+import HintButton from "./HintButton"
+import image from '../IMG/image4.jpg';
 
 var isClicked = false;
 
@@ -65,7 +66,16 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
         setTimeout(() => {
             recureSolve(PuzzleCell, pictureCell, i + 1);
         }, 300);
-    
+    }
+
+    function hint() {
+        const hintImage = document.getElementsByClassName('hintPicture')[0];
+        setTimeout(() => {
+            hintImage.style.opacity = 1;
+        }, 0);
+        setTimeout(() => {
+            hintImage.style.opacity = 0;
+        }, 2500);
     }
 
     useEffect(() => {
@@ -132,6 +142,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
                         )
                     })
                 }
+                <img className="hintPicture" src={image} alt="puzzle" />
             </div>
 
             <div className="Puzzle" style={{ left: 20 }}>
@@ -163,6 +174,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             <div className="Control">
                 <ResetButton reset={reset} generateRandomArray={generateRandomArray} nPuzzle={nPuzzle} />
                 <SolveButton solve={solve} />
+                <HintButton hint={hint} />
             </div>
         </div>
     )
