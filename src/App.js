@@ -19,11 +19,11 @@ function generateRandomArray(n) {
 }
 
 function App() {
-    const n = 50;
-    const ArrayPosition = generateRandomArray(n);
+    const nPuzzle = 50;
+    const ArrayPosition = generateRandomArray(nPuzzle);
 
     return (
-        <BackGround ArrayPosition = {ArrayPosition} />
+        <BackGround nPuzzle={nPuzzle} generateRandomArray={generateRandomArray} ArrayPosition = {ArrayPosition} />
     );
 }
 

@@ -35,27 +35,23 @@ function checkWin() {
     return true;
 }
 
-function reset(ArrayPosition) {
-    const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
-    const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
-    console.log(PuzzleCell);
-    Array.from(PuzzleCell).forEach((cell, i) => {
-        const [x, y] = [i % 10, Math.floor(i / 10)]
-        cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
-        cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
 
-        cell.setAttribute('data-id', null);
-    })
-}
-
-
-export default function BackGround({ ArrayPosition }) {
-    console.log(reset);
+export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle}) {
+    function reset(ArrayPosition) {
+        const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
+        const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
+        Array.from(PuzzleCell).forEach((cell, i) => {
+            const [x, y] = [i % 10, Math.floor(i / 10)]
+            cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
+            cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
+    
+            cell.setAttribute('data-id', null);
+        })
+    }
 
     useEffect(() => {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const pictureCell = document.getElementsByClassName('picture__cell');
-        // const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
         reset(ArrayPosition);
         Array.from(PuzzleCell).forEach((cell, i) => {
             var positionPointer = {
@@ -147,7 +143,7 @@ export default function BackGround({ ArrayPosition }) {
             }
 
             <div className="Control">
-                <ResetButton onClick={reset} />
+                <ResetButton reset={reset} generateRandomArray={generateRandomArray} nPuzzle={nPuzzle} />
             </div>
         </div>
     )

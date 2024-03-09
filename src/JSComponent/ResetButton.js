@@ -1,7 +1,10 @@
-export default function ResetButton({reset}) {
-    console.log(123, reset);
+export default function ResetButton({reset, generateRandomArray, nPuzzle}) {
+    function onClick() {
+        reset(generateRandomArray(nPuzzle));
+    }
+
     return (
-        <button onClick={reset} className="resetButton">
+        <button onClick={onClick} className="resetButton">
             <p>Reset</p>
         </button>
 
