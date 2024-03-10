@@ -40,12 +40,12 @@ function checkWin() {
 }
 
 
-export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle}) {
+export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT}) {
     function reset(ArrayPosition) {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
         Array.from(PuzzleCell).forEach((cell, i) => {
-            const [x, y] = [i % 10, Math.floor(i / 10)]
+            const [x, y] = [i % WIDTH, Math.floor(i / WIDTH)]
             cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
             cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
     
@@ -92,8 +92,8 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
                 x: 0,
                 y: 0
             };
-            const [x, y] = [i % 10, Math.floor(i / 10)]
-            cell.style.clipPath = `polygon(${x * 10}% ${y * 20}%, ${(x + 1) * 10}% ${y * 20}%, ${(x + 1) * 10}% ${(y + 1) * 20}%, ${x * 10}% ${(y + 1) * 20}%)`
+            const [x, y] = [i % WIDTH, Math.floor(i / WIDTH)]
+            cell.style.clipPath = `polygon(${x * 100 / WIDTH}% ${y * 100 / HEIGHT}%, ${(x + 1) * 100 / WIDTH}% ${y * 100 / HEIGHT}%, ${(x + 1) * 100 / WIDTH}% ${(y + 1) * 100 / HEIGHT}%, ${x * 100 / WIDTH}% ${(y + 1) * 100 / HEIGHT}%)`
 
             cell.addEventListener('mousedown', (event) => {
                 isClicked = true;
@@ -142,7 +142,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
         <div className="BackGround">
             <div className="picture">
                 {
-                    Array(50).fill(0).map((_, i) => {
+                    Array(WIDTH * HEIGHT).fill(0).map((_, i) => {
                         return (
                             <div data-id={i} key={i} className="picture__cell"></div>
                         )
@@ -153,7 +153,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
 
             <div className="Puzzle" style={{ left: 20 }}>
                 {
-                    Array(25).fill(0).map((_, i) => {
+                    Array(WIDTH * HEIGHT / 2).fill(0).map((_, i) => {
                         return (
                             <div key={i} className="Puzzle__cell"> </div>
                         )
@@ -162,7 +162,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             </div>
             <div className="Puzzle" style={{ right: 20 }}>
                 {
-                    Array(25).fill(0).map((_, i) => {
+                    Array(WIDTH * HEIGHT / 2).fill(0).map((_, i) => {
                         return (
                             <div key={i} className="Puzzle__cell"> </div>
                         )
@@ -170,7 +170,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
                 }
             </div>
             {
-                Array(50).fill(0).map((_, i) => {
+                Array(WIDTH * HEIGHT).fill(0).map((_, i) => {
                     return (
                         <PuzzleCell dataId={null} id={i} key={i} />
                     )
