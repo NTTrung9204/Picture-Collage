@@ -63,6 +63,10 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
         if (i == nPuzzle) {
             return;
         }
+        if(PuzzleCell[i].getAttribute('data-id') == i){
+            recureSolve(PuzzleCell, pictureCell, i + 1);
+            return;
+        }
         moveInContainer(PuzzleCell[i], pictureCell[i]);
         setTimeout(() => {
             recureSolve(PuzzleCell, pictureCell, i + 1);
