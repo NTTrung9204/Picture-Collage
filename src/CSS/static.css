@@ -130,27 +130,44 @@
 }
 
 .SliceImage{
-    width: 100%;
+    width: 750px;
     height: 500px;
     position: relative;
+}
+
+.containerArrow{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(238, 130, 238, 0.358);
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.containerArrow:hover{
+    background-color: rgba(238, 130, 238, 0.673);
+}
+
+.containerArrow:hover i{
+    color: rgba(0, 0, 0, 0.742);
 }
 
 .SliceImage img{
     width: 750px;
     height: 500px;
     position: absolute;
+    transition: all 0.2s;
+    border-radius: 15px;
 }
 
-.SliceImage i{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+.containerArrow i{
     font-size: 60px;
-    cursor: pointer;
+    line-height: 70px;
     transition: all 0.3s;
-    z-index: 1;
-}
-
-.SliceImage i:hover{
-    color: violet;
+    color: rgba(0, 0, 0, 0.481);
 }

@@ -19,7 +19,9 @@ export default function Home({onClick}) {
     return (
         <div className="home">
             <div className="SliceImage">
-                <i onClick={handleLeftClick} style={{right: 15}} className="fas fa-chevron-right"></i>
+                <div style={{right: 15}} className='containerArrow'>
+                    <i onClick={handleRightClick} className="fas fa-chevron-right"></i>
+                </div>
                 {
                     imageList.map((image, i) => {
                         return (
@@ -27,7 +29,9 @@ export default function Home({onClick}) {
                         )
                     })
                 }
-                <i style={{left: 15}} className="fas fa-chevron-left"></i>
+                <div style={{left: 15}} className='containerArrow'>
+                    <i onClick={handleLeftClick}  className="fas fa-chevron-left"></i>
+                </div>
             </div>
         </div>
     )
