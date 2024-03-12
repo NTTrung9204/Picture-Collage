@@ -1,10 +1,10 @@
 import PuzzleCell from "./PuzzleCell"
-import { useEffect } from "react"
-import SolveButton from "./SolveButton"
-import ResetButton from "./ResetButton"
-import HintButton from "./HintButton"
-import BackButton from "./BackButton"
-import image from '../IMG/image4.jpg';
+import { useEffect } from "react";
+import Picture from "./Picture";
+import Puzzle from "./Puzzle"
+import PuzzleImage from "./PuzzleImage"
+import Control from "./Control"
+
 
 var isClicked = false;
 var isAlert = false;
@@ -55,7 +55,7 @@ function checkWin() {
 }
 
 
-export default function BackGround({ handleHomeClick, ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT}) {
+export default function BackGround({ handleHomeClick, ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT, image}) {
     function reset(ArrayPosition) {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
@@ -157,50 +157,13 @@ export default function BackGround({ handleHomeClick, ArrayPosition, generateRan
     }, [])
 
     return (
-        <div >
-            <div className="picture">
-                {
-                    Array(WIDTH * HEIGHT).fill(0).map((_, i) => {
-                        return (
-                            <div data-id={i} key={i} className="picture__cell"></div>
-                        )
-                    })
-                }
-                <img className="hintPicture" src={image} alt="puzzle" />
-            </div>
+        <div className="Game">
+            <Picture WIDTH={WIDTH} HEIGHT={HEIGHT} image={image} />
+            <Puzzle WIDTH={WIDTH} HEIGHT={HEIGHT} />
+            
+            <PuzzleImage image={image} WIDTH={WIDTH} HEIGHT={HEIGHT} PuzzleCell={PuzzleCell} />
 
-            <div className="Puzzle" style={{ left: 20 }}>
-                {
-                    Array(WIDTH * HEIGHT / 2).fill(0).map((_, i) => {
-                        return (
-                            <div key={i} className="Puzzle__cell"> </div>
-                        )
-                    })
-                }
-            </div>
-            <div className="Puzzle" style={{ right: 20 }}>
-                {
-                    Array(WIDTH * HEIGHT / 2).fill(0).map((_, i) => {
-                        return (
-                            <div key={i} className="Puzzle__cell"> </div>
-                        )
-                    })
-                }
-            </div>
-            {
-                Array(WIDTH * HEIGHT).fill(0).map((_, i) => {
-                    return (
-                        <PuzzleCell dataId={null} id={i} key={i} />
-                    )
-                })
-            }
-
-            <div className="Control">
-                <ResetButton reset={reset} generateRandomArray={generateRandomArray} nPuzzle={nPuzzle} />
-                <SolveButton solve={solve} />
-                <HintButton hint={hint} />
-                <BackButton back={handleHomeClick} />
-            </div>
+            <Control nPuzzle={nPuzzle} solve={solve} reset={reset} generateRandomArray={generateRandomArray} hint={hint} handleHomeClick={handleHomeClick} />
         </div>
     )
 }
