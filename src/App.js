@@ -19,8 +19,8 @@ function generateRandomArray(n) {
 }
 
 function App() {
-    const WIDTH = 10;
-    const HEIGHT = 5;
+    const WIDTH = 6;
+    const HEIGHT = 4;
     const nPuzzle = WIDTH * HEIGHT;
     const ArrayPosition = generateRandomArray(nPuzzle);
 

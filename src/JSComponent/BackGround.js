@@ -8,14 +8,28 @@ import image from '../IMG/image4.jpg';
 var isClicked = false;
 var isAlert = false;
 
-function moveInContainer(element, container) {
+function settingGame(Picture, pictureCell, PuzzleCellPosition, WIDTH, HEIGHT){
+    Picture.style.gridTemplateColumns = `repeat(${WIDTH}, 1fr)`;
+    Picture.style.gridTemplateRows = `repeat(${HEIGHT}, 1fr)`;
+    Array.from(pictureCell).forEach((cell, i) => {
+        cell.style.width = 750 / WIDTH + 'px';
+        cell.style.height = 500 / HEIGHT + 'px';
+    })
+
+    Array.from(PuzzleCellPosition).forEach((cell, i) => {
+        cell.style.width = 750 / WIDTH + 'px';
+        cell.style.height = 500 / HEIGHT + 'px';
+    })
+}
+
+function moveInContainer(element, container, WIDTH, HEIGHT) {
     element.style.transition = 'all 0.3s';
     const dataId = container.getAttribute('data-id');
     const i = element.id;
-    const [x, y] = [i % 10, Math.floor(i / 10)]
+    const [x, y] = [i % WIDTH, Math.floor(i / WIDTH)]
     const rect = container.getBoundingClientRect();
-    element.style.left = rect.left + rect.width / 2 - element.offsetWidth * (x * 10 + 5) / 100 + 'px';
-    element.style.top = rect.top + rect.height / 2 - element.offsetHeight * (y * 20 + 10) / 100 + 'px';
+    element.style.left = rect.left + rect.width / 2 - element.offsetWidth * (x * 100 / WIDTH + 50 / WIDTH) / 100 + 'px';
+    element.style.top = rect.top + rect.height / 2 - element.offsetHeight * (y * 100 / HEIGHT + 50 / HEIGHT) / 100 + 'px';
     element.setAttribute('data-id', dataId);
 }
 
@@ -46,8 +60,8 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
         Array.from(PuzzleCell).forEach((cell, i) => {
             const [x, y] = [i % WIDTH, Math.floor(i / WIDTH)]
-            cell.style.left = cell.offsetWidth * 0.05 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 10 + 5) / 100 + 'px';
-            cell.style.top = cell.offsetHeight * 0.1 + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 20 + 10) / 100 + 'px';
+            cell.style.left = cell.offsetWidth * 0.5 / WIDTH + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().left - cell.offsetWidth * (x * 100 / WIDTH + 50 / WIDTH) / 100 + 'px';
+            cell.style.top = cell.offsetHeight * 0.5 / HEIGHT + PuzzleCellContainer[ArrayPosition[i]].getBoundingClientRect().top - cell.offsetHeight * (y * 100 / HEIGHT + 50 / HEIGHT) / 100 + 'px';
     
             cell.setAttribute('data-id', null);
         })
@@ -67,7 +81,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             recureSolve(PuzzleCell, pictureCell, i + 1);
             return;
         }
-        moveInContainer(PuzzleCell[i], pictureCell[i]);
+        moveInContainer(PuzzleCell[i], pictureCell[i], WIDTH, HEIGHT);
         setTimeout(() => {
             recureSolve(PuzzleCell, pictureCell, i + 1);
         }, 300);
@@ -86,6 +100,9 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
     useEffect(() => {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const pictureCell = document.getElementsByClassName('picture__cell');
+        const Picture = document.getElementsByClassName('picture')[0];
+        const PuzzleCellPosition = document.getElementsByClassName('Puzzle__cell');
+        settingGame(Picture, pictureCell, PuzzleCellPosition, WIDTH, HEIGHT);
         reset(ArrayPosition);
         Array.from(PuzzleCell).forEach((cell, i) => {
             var positionPointer = {
@@ -126,7 +143,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
             e.target.style.zIndex = 0;
             Array.from(pictureCell).forEach(pictureCell => {
                 if (isContainer(pictureCell, e.clientX, e.clientY) && e.target.className == 'Puzzle__cell__image') {
-                    moveInContainer(e.target, pictureCell);
+                    moveInContainer(e.target, pictureCell, WIDTH, HEIGHT);
                     if(checkWin() && !isAlert){
                         isAlert = true;
                         alert('You win');
