@@ -1,6 +1,9 @@
 import './App.css';
 import BackGround from './JSComponent/BackGround';
+import Home from './JSComponent/Home';
 import './CSS/static.css'
+import { useState, useEffect } from 'react';
+import React from 'react';
 
 function generateRandomArray(n) {
     var arr = [];
@@ -20,12 +23,24 @@ function generateRandomArray(n) {
 
 function App() {
     const WIDTH = 6;
-    const HEIGHT = 4;
+    const HEIGHT = 3;
     const nPuzzle = WIDTH * HEIGHT;
     const ArrayPosition = generateRandomArray(nPuzzle);
+    const [home, setHome] = useState(true);
+
+    function handleHomeClick() {
+        setHome(prev => !prev);
+    }
 
     return (
-        <BackGround WIDTH={WIDTH} HEIGHT={HEIGHT} nPuzzle={nPuzzle} generateRandomArray={generateRandomArray} ArrayPosition = {ArrayPosition} />
+        <div className="BackGround">
+            {home ? <Home onClick={handleHomeClick} /> : 
+                    <BackGround 
+                        WIDTH={WIDTH} HEIGHT={HEIGHT} nPuzzle={nPuzzle} 
+                        generateRandomArray={generateRandomArray} ArrayPosition={ArrayPosition} 
+                        handleHomeClick={handleHomeClick}
+                    />}
+        </div>
     );
 }
 

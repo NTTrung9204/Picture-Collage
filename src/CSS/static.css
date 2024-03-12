@@ -49,7 +49,7 @@
     box-sizing: border-box;
 }
 
-img{
+.picture img{
     width: 750px;
     height: 500px;
     position: absolute;
@@ -116,4 +116,41 @@ img{
 .hintPicture{
     opacity: 0;
     transition: all 2.5s;
+}
+
+.home{
+    width: 750px;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.SliceImage{
+    width: 100%;
+    height: 500px;
+    position: relative;
+}
+
+.SliceImage img{
+    width: 750px;
+    height: 500px;
+    position: absolute;
+}
+
+.SliceImage i{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 1;
+}
+
+.SliceImage i:hover{
+    color: violet;
 }

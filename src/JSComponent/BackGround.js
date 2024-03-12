@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import SolveButton from "./SolveButton"
 import ResetButton from "./ResetButton"
 import HintButton from "./HintButton"
+import BackButton from "./BackButton"
 import image from '../IMG/image4.jpg';
 
 var isClicked = false;
@@ -54,7 +55,7 @@ function checkWin() {
 }
 
 
-export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT}) {
+export default function BackGround({ handleHomeClick, ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT}) {
     function reset(ArrayPosition) {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
@@ -156,7 +157,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
     }, [])
 
     return (
-        <div className="BackGround">
+        <div >
             <div className="picture">
                 {
                     Array(WIDTH * HEIGHT).fill(0).map((_, i) => {
@@ -198,6 +199,7 @@ export default function BackGround({ ArrayPosition, generateRandomArray, nPuzzle
                 <ResetButton reset={reset} generateRandomArray={generateRandomArray} nPuzzle={nPuzzle} />
                 <SolveButton solve={solve} />
                 <HintButton hint={hint} />
+                <BackButton back={handleHomeClick} />
             </div>
         </div>
     )
