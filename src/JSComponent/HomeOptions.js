@@ -1,9 +1,12 @@
-export default function HomeOptions({ onClick }) {
+import StartButton from "./StartButton"
+import LevelButton from "./LevelButton"
+
+export default function HomeOptions({ onClick, level, handleLevelClick}) {
+    console.log('HomeOptions', level)
     return (
         <div className='home__options'>
-            <button className='Control__Button' onClick={onClick}>
-                <p>Start</p>
-            </button>
+            <LevelButton onClick={handleLevelClick} level={level}/>
+            <StartButton onClick={onClick}/>
         </div>
     )
 }

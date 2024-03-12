@@ -56,6 +56,7 @@ function checkWin() {
 
 
 export default function BackGround({ handleHomeClick, ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT, image}) {
+    console.log(WIDTH, HEIGHT);
     function reset(ArrayPosition) {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');

@@ -23,14 +23,45 @@ function generateRandomArray(n) {
 
 const images = require.context('./IMG', true);
 const imageList = images.keys().map(image => images(image));
+const LevelGame = [
+    {
+        Level: "Esay",
+        WIDTH: 4,
+        HEIGHT: 2
+    },
+    {
+        Level: "Normal",
+        WIDTH: 6,
+        HEIGHT: 3
+    },
+    {
+        Level: "Hard",
+        WIDTH: 8,
+        HEIGHT: 4
+    },
+    {
+        Level: "Very Hard",
+        WIDTH: 10,
+        HEIGHT: 5
+    }
+]
 
 function App() {
-    const WIDTH = 6;
-    const HEIGHT = 3;
-    const nPuzzle = WIDTH * HEIGHT;
-    const ArrayPosition = generateRandomArray(nPuzzle);
     const [home, setHome] = useState(true);
     const [index, setIndex] = useState(0);
+    const [level, setLevel] = useState(LevelGame[0]);
+
+    const WIDTH = level.WIDTH;
+    const HEIGHT = level.HEIGHT;
+    const nPuzzle = WIDTH * HEIGHT;
+    const ArrayPosition = generateRandomArray(nPuzzle);
+
+    function handleLevelClick() {
+        setLevel(level =>{
+            const index = (LevelGame.indexOf(level) + 1) % LevelGame.length;
+            return LevelGame[index];
+        });
+    }
 
     function handleLeftClick() {
         setIndex(prev => (prev - 1 + imageList.length) % imageList.length);
@@ -47,7 +78,9 @@ function App() {
     return (
         <div className="BackGround">
             {home ? <Home imageList={imageList} handleRightClick={handleRightClick}
-                        handleLeftClick={handleLeftClick} onClick={handleHomeClick} index={index}/> : 
+                        handleLeftClick={handleLeftClick} onClick={handleHomeClick} index={index}
+                        handleLevelClick={handleLevelClick} level={level}    
+                    /> : 
                     <BackGround 
                         WIDTH={WIDTH} HEIGHT={HEIGHT} nPuzzle={nPuzzle} 
                         generateRandomArray={generateRandomArray} ArrayPosition={ArrayPosition} 

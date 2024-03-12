@@ -110,7 +110,7 @@
 }
 
 .Control__Button:hover::before{
-    clip-path: circle(100px at 0 0);
+    clip-path: circle(200px at 0 0);
 }
 
 .hintPicture{
