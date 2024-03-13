@@ -2,7 +2,7 @@ import './App.css';
 import BackGround from './JSComponent/BackGround';
 import Home from './JSComponent/Home';
 import './CSS/static.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import React from 'react';
 
 function generateRandomArray(n) {
@@ -11,7 +11,7 @@ function generateRandomArray(n) {
         arr.push(i);
     }
 
-    for (var i = arr.length - 1; i > 0; i--) {
+    for (i = arr.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = arr[i];
         arr[i] = arr[j];
@@ -22,7 +22,8 @@ function generateRandomArray(n) {
 }
 
 const images = require.context('./IMG', true);
-const imageList = images.keys().map(image => images(image));
+const _imageList = images.keys().map(image => images(image));
+
 const LevelGame = [
     {
         Level: "Esay",
@@ -50,11 +51,20 @@ function App() {
     const [home, setHome] = useState(true);
     const [index, setIndex] = useState(0);
     const [level, setLevel] = useState(LevelGame[0]);
+    const [imageList, setImageList] = useState(_imageList);
 
     const WIDTH = level.WIDTH;
     const HEIGHT = level.HEIGHT;
     const nPuzzle = WIDTH * HEIGHT;
     const ArrayPosition = generateRandomArray(nPuzzle);
+
+    function handleImageList(newImage) {
+        setImageList(imageList => {
+            const newImageList = [...imageList, newImage];
+            setIndex(newImageList.length - 1);
+            return newImageList;
+        });
+    }
 
     function handleLevelClick() {
         setLevel(level =>{
@@ -75,11 +85,13 @@ function App() {
         setHome(prev => !prev);
     }
 
+    
+
     return (
         <div className="BackGround">
             {home ? <Home imageList={imageList} handleRightClick={handleRightClick}
                         handleLeftClick={handleLeftClick} onClick={handleHomeClick} index={index}
-                        handleLevelClick={handleLevelClick} level={level}    
+                        handleLevelClick={handleLevelClick} level={level} handleImageList={handleImageList}  
                     /> : 
                     <BackGround 
                         WIDTH={WIDTH} HEIGHT={HEIGHT} nPuzzle={nPuzzle} 

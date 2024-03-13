@@ -5,7 +5,7 @@ export default function BackButton({back}) {
 
     return (
         <button onClick={onClick} className="Control__Button">
-            <p>Back</p>
+            <label>Back</label>
         </button>
     )
 }

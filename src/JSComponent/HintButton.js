@@ -5,7 +5,7 @@ export default function HintButton({hint}) {
 
     return (
         <button onClick={onClick} className="Control__Button">
-            <p>Hint</p>
+            <label>Hint</label>
         </button>
     )
 }

@@ -7,7 +7,7 @@ export default function SliceImage({ sliceImage, imageList, index, handleLeftCli
             {
                 imageList.map((image, i) => {
                     return (
-                        <img style={{ opacity: `${(i == index) ? 1 : 0}` }} key={i} src={image} alt="home" />
+                        <img style={{ opacity: `${(i === index) ? 1 : 0}` }} key={i} src={image} alt="home" />
                     )
                 })
             }

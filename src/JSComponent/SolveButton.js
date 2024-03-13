@@ -5,7 +5,7 @@ export default function SolveButton({solve}) {
 
     return (
         <button onClick={onClick} className="Control__Button">
-            <p>Solve</p>
+            <label>Solve</label>
         </button>
     )
 }

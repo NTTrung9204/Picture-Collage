@@ -63,6 +63,10 @@
     cursor: pointer;
 }
 
+label {
+    cursor: pointer;
+}
+
 .Control{
     width: 750px;
     position: fixed;
@@ -85,7 +89,7 @@
     cursor: pointer;
 }
 
-.Control__Button p{
+.Control__Button label{
     z-index: 1;
     transition: all 0.5s;
     position: relative;
@@ -93,7 +97,7 @@
     font-size: 20px;
 }
 
-.Control__Button:hover p{
+.Control__Button:hover label{
     color: thistle;
 }
 

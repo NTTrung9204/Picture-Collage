@@ -47,7 +47,7 @@ function isContainer(element, x, y) {
 function checkWin() {
     const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
     for (let i = 0; i < PuzzleCell.length; i++) {
-        if (PuzzleCell[i].getAttribute('data-id') != i) {
+        if (PuzzleCell[i].getAttribute('data-id') !== i) {
             return false;
         }
     }
@@ -56,7 +56,6 @@ function checkWin() {
 
 
 export default function BackGround({ handleHomeClick, ArrayPosition, generateRandomArray, nPuzzle, WIDTH, HEIGHT, image}) {
-    console.log(WIDTH, HEIGHT);
     function reset(ArrayPosition) {
         const PuzzleCell = document.getElementsByClassName("Puzzle__cell__image")
         const PuzzleCellContainer = document.getElementsByClassName('Puzzle__cell');
@@ -76,10 +75,10 @@ export default function BackGround({ handleHomeClick, ArrayPosition, generateRan
     }
 
     function recureSolve(PuzzleCell, pictureCell, i) {
-        if (i == nPuzzle) {
+        if (i === nPuzzle) {
             return;
         }
-        if(PuzzleCell[i].getAttribute('data-id') == i){
+        if(PuzzleCell[i].getAttribute('data-id') === i){
             recureSolve(PuzzleCell, pictureCell, i + 1);
             return;
         }
@@ -144,7 +143,7 @@ export default function BackGround({ handleHomeClick, ArrayPosition, generateRan
             isClicked = false;
             e.target.style.zIndex = 0;
             Array.from(pictureCell).forEach(pictureCell => {
-                if (isContainer(pictureCell, e.clientX, e.clientY) && e.target.className == 'Puzzle__cell__image') {
+                if (isContainer(pictureCell, e.clientX, e.clientY) && e.target.className === 'Puzzle__cell__image') {
                     moveInContainer(e.target, pictureCell, WIDTH, HEIGHT);
                     if(checkWin() && !isAlert){
                         isAlert = true;
