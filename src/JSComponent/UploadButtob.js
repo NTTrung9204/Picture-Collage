@@ -14,7 +14,7 @@ export default function UploadButton({ onClick, handleImageList}) {
         //         console.log('remove')
         //     })
         // }
-    })
+    }, [])
 
     return (
         <button className='Control__Button' onClick={onClick}>
